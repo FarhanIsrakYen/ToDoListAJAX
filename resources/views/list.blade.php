@@ -15,7 +15,7 @@
 
 				<div class="panel panel-default">
 				  <div class="panel-heading">
-				    <h3 class="panel-title">ToDo list in AJAX<a href="#" data-toggle="modal" data-target="#myModal" class="pull-right"><i class="fa fa-plus" aria-hidden="true"></a></i></h3> <!-- pul right class took the "+" to the right -->
+				    <h3 class="panel-title">ToDo list in AJAX<a href="#" id="addNew" data-toggle="modal" data-target="#myModal" class="pull-right"><i class="fa fa-plus" aria-hidden="true"></a></i></h3> <!-- pul right class took the "+" to the right -->
 				  </div>
 				  <div class="panel-body">
 				    <ul class="list-group">
@@ -51,10 +51,12 @@
 	  </div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 
+
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 	  crossorigin="anonymous"></script>	<!-- jquery cdn -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <!-- bootstrap script cdn -->
+@csrf
   	<script type="text/javascript">
   		$('#myModal').on('shown.bs.modal', function () {
   		  $('#myInput').focus()
@@ -73,6 +75,25 @@
   					console.log(text);
   				});
   			});
+
+
+  				$('#addNew').click(function(event){
+  					var text = $(this).text();
+  					$('#title').text('Add New Item');
+  					$('#remove').hide('400');
+  					$('#savechanges').hide('400');
+  					$('#addItem').val("");
+  					$('#addBtn').show('400');
+  					console.log(text);
+  				});
+  				
+  				$('#addBtn').click(function(event){
+  					var text = $('#addItem').val();
+  					$.post('list', {'text': text,'_token':$('input[name=_token]').val()}, function(data){
+  					   console.log(data);
+  					  });
+  					
+  				});
   			
   		});
   	</script>

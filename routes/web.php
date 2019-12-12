@@ -15,8 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('list', function () {
-    return view('list');
-}); 
+Route::get('list','ListController@index');
+Route::post('list','ListController@create');
+
 //ctrl+shift+D by selecting the part to be coppied
 
